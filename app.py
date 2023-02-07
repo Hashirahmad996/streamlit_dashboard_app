@@ -488,11 +488,8 @@ with tab2:
       plt.xticks(rotation=80,)
       st.pyplot(fig12)
       
-      #data1.to_csv("cleaned_final_dataset.csv")
-   st.write("")
-   st.markdown("We are ready for prediction ,lets move on")
-   st.write("")
-   
+      data1.to_csv("cleaned_final_dataset.csv")
+
    
 
    
@@ -798,7 +795,6 @@ with tab3:
                'are leading in non defaulters')  
      st.write("") 
      st.write("") 
-     st.write("") 
      plot_countplots_hue(df2,"AGE_GROUP")
    
      st.markdown('**Observations** This graph shows that mostly middle age people are non dedaulter and 2nd comes the young. ')  
@@ -921,55 +917,5 @@ with tab3:
         plot_countplots(df2,"NAME_CONTRACT_TYPE")
         t='''**Observation:** Here the contract is divided in two categories: Cash loans & Revolving laons. In which females are dominant in both of the categories'''
       
-     elif tab_selected == "CODE_GENDER":
-        
-        plot_countplots(df2,"CODE_GENDER")
-        t='''We can see that females are 175k in Non defaulter category whereas
-              "men are around 80k in numbers in non defaulter. Which tell us that more female repey the loan.'''
       
-     elif tab_selected == "NAME_TYPE_SUITE":
-       
-        plot_countplots(df2,"NAME_TYPE_SUITE")
-        t='''**Observation:** This graph tell us the ratio between type suit and lonas. We define 0 as non defaulty and 1 as defaulter. It shows that mostly unaccompained people repay their loans'''
-        
-     elif tab_selected == "NAME_INCOME_TYPE":
-        
-        plot_countplots(df2,"NAME_INCOME_TYPE")
-        t='''**Observation:** This graph is the ratio income type and loan. Working people are on the top to repay their loans whereas state  serverts comes at the 4th numbere.'''
-     
-     elif tab_selected == "NAME_EDUCATION_TYPE":
-        
-        plot_countplots(df2,"NAME_EDUCATION_TYPE")
-        t='''**Observations** We can see that mostly Secondary education people repay their loans later comes the higher education.'''      
-      
-     elif tab_selected == "NAME_FAMILY_STATUS":
-        st.write("Tab 2 selected")
-        plot_countplots(df2,"NAME_FAMILY_STATUS")
-        t='''**Observations** This graph tell us that Married people are more responsible and comes in non defaulter cetegory'''   
-        
-     elif tab_selected == "NAME_HOUSING_TYPE":
-        st.write("Tab 2 selected")
-        plot_countplots(df2,"NAME_HOUSING_TYPE")
-        t='''**Observations** People having house or apartments are more in non default category and number reaches upto 250k'''
-              
-     elif tab_selected == "OCCUPATION_TYPE":
-        plot_countplots(df2,"OCCUPATION_TYPE")
-        t='''**Observations** People from the medicine field are more non defaulters whereas labourer and pensionars are mostly defaulters'''
-       
-     
-     
-       
-     
-     with st.expander("See explanation"):
-        st.write(t)
-      
-      
-     # Open the sidebar when a specific tab is selected
-     if cus1 == "Customise Chart":
-        
-        st.sidebar.header("Tab 2 Options")
-        st.sidebar.empty()   
-     
-     
-     
-       
+   
