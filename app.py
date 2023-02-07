@@ -26,19 +26,19 @@ plt.style.use('ggplot') #Applying style to graphs
 
 @st.cache
 def load_csv():
-        csv=pd.read_csv("E:/data science dataset/application_data.csv")
+        csv=pd.read_csv("application_data.csv")
         return csv
-df=pd.read_csv("E:/data science dataset/application_data.csv")
+df=pd.read_csv("application_data.csv")
 df2=pd.DataFrame()
 
-
+st.title("Credit Card Fraud Detection Case Study")
 
 
 tab1, tab2, tab3,tab4 = st.tabs(["Overview ", "Data Wrangling", "EDA","Model Prediction"])
 
 with tab1:
    
-    st.header("**Exploratory Data Analysis (EDA) – Credit Card Fraud Detection Case Study**")
+    st.header("Exploratory Data Analysis (EDA) And Prediction– ")
     st.subheader("Overview")
     
     st.markdown('''In this case study, the focus is on Exploratory Data Analysis for credit card fraud detection.
@@ -373,8 +373,9 @@ with tab2:
        'AMT_REQ_CREDIT_BUREAU_YEAR', 'AGE_GROUP']
 
    data1[x]=data1[x].astype("category")
-
-   
+   st.write("")
+   st.subheader("Check Imbalance Data")
+   st.write("")
    # Count the number of instances for each target value
    target_value_counts = data1["TARGET"].value_counts()
 
@@ -435,7 +436,6 @@ with tab2:
       st.write(X_train.columns[sel_five_cols.get_support()])
    
    
-   
    from sklearn.preprocessing import LabelEncoder
    le1 = LabelEncoder()
    le2 = LabelEncoder()
@@ -464,7 +464,9 @@ with tab2:
    X=categorical_col.iloc[:,1:]
    y=categorical_col["TARGET"]  
    
-   
+   st.write("")
+   st.subheader("Get Best Gategorical Features")
+   st.write("")
    
    with st.echo():
       ### train Test split is usually done to avaoid overfitting
@@ -486,200 +488,488 @@ with tab2:
       plt.xticks(rotation=80,)
       st.pyplot(fig12)
       
-      data1.to_csv("cleaned_final_dataset.csv")
+      #data1.to_csv("cleaned_final_dataset.csv")
+   st.write("")
+   st.markdown("We are ready for prediction ,lets move on")
+   st.write("")
+   
+   
 
    
+with tab4:
    
+   with st.sidebar:
+      
+      add_selectbox = st.selectbox(
+         "How would you like to be predicted?",
+         ("Logistic Regression", "Random Forest","KNN","Decision Tree","ANN")
+            )
+
+      st.write("")
+      st.write("")
+      st.write("")
+      st.write("")
+      st.write("")
+      st.write("")
+      st.subheader(' Group Members')
+      st.markdown(''' Zohaib Qureshi''')
+      st.markdown(''' Hashir Ahmad''')
+      st.markdown(''' Mubashir''')
+      st.markdown(''' Aqsa Umer''')
+      st.markdown(''' Sabtain Khan''')
+      
+      
+   df5=pd.read_csv("cleaned_final_dataset.csv").sample(1000)
+   st.title("Select Feature for prediction")
+   # Create a dropdown menu to select the tab
+   
+   name_contract_type=0
+   code_gander=0
+   cnt_children=0
+   amt_income_total=99000.0
+   amt_credict=312768.0
+   amt_annuiti=13905.0
+   name_type_suit=6
+   name_income_type=3
+   name_education_type=4
+   name_family_status=0
+   name_housing_type=1
+   regoin_population_relative=0.024610
+   days_birth=29
+   days_employed=2908
+   days_registration=3391.0
+   days_id_publish=3129
+   occupation_type=10
+   cnt_fam_members=2.0
+   week_strt=4
+   hours_start=13
+   rg_reg_n_l_r=0
+   rg_reg_n_w_r=0
+   reg_c_n_L_r=0
+   reg_c_n_w_r=0
+   organization_type=11
+   ext_source_2=0.490272
+   ext_source_3=0.362277
+   obs_30_cnt=0.0
+   def_30_cnt=0.0
+   obs_60_cnt=0.0
+   def_60_cnt=0.0
+   days_last_phone_change=374.0
+   amt_r_c_b_hour=0.0
+   amt_r_c_b_day=0.0
+   amt_r_c_b_week=0.0
+   amt_r_c_b_mon=0.0
+   amt_r_c_b_qrt=0.0
+   amt_r_c_b_year=0.0
+   age_group=0
+   
+   tab_selected1 = st.selectbox("Select Age Group", ['Young', 'Middle_Age', 'Senior_Citizen', 'Very_Young'])
+   
+# Use a conditional statement to display the selected tab's content
+   if tab_selected1 == 'Young':
+      age_group=0
+   elif tab_selected1 == 'Very_Young':
+      age_group=1
+   elif tab_selected1 == "Middle_Age":
+      age_group=2
+   
+   elif tab_selected1 == "Senior_Citizen":
+      age_group=3   
+   
+   
+   contract_type = st.selectbox("Select Contract Type", ['Cash loans', 'Revolving loans'])
+   
+# Use a conditional statement to display the selected tab's content
+   if contract_type == 'Cash loans':
+      name_contract_type=0
+   elif contract_type == 'Revolving loans':
+      name_contract_type=1
+   
+   
+   typr_suit = st.selectbox("Select Age Group", ['Unaccompanied', 'Family', 'Children', 'Spouse, partner', 'Other_B', 'Group of people', 'Other_A'])
+   
+# Use a conditional statement to display the selected tab's content
+   if typr_suit == 'Unaccompanied':
+      name_type_suit=6
+   elif typr_suit == 'Family':
+      name_type_suit=5
+   elif typr_suit == "Children":
+      name_type_suit=1
+   
+   elif typr_suit == "Spouse, partner":
+      name_type_suit=0
+   
+   elif typr_suit == 'Other_B':
+      name_type_suit=4
+   elif typr_suit == "Group of people":
+      name_type_suit=2
+   
+   elif typr_suit == 'Other_A':
+      name_type_suit=3    
+   
+   
+   gander = st.checkbox('Male ')
+
+   if gander:
+      code_gander=1
+   else:
+      code_gander=0
+      
+   reg = st.checkbox('REG_REGION_NOT_LIVE_REGION')
+
+   if reg:
+      rg_reg_n_l_r=0
+   else:
+      rg_reg_n_l_r=1  
+      
+   children = st.select_slider(
+    'Select number of children ',
+    options=[0, 1, 2, 3, 4, 5, 6])
+   cnt_children=children
+   
+   
+   p_list=[name_contract_type,
+   code_gander,
+   cnt_children,
+   amt_income_total,
+   amt_credict,
+   amt_annuiti,
+   name_type_suit,
+   name_income_type,
+   name_education_type,
+   name_family_status,
+   name_housing_type,
+   regoin_population_relative,
+   days_birth,
+   days_employed,
+   days_registration,
+   days_id_publish,
+   occupation_type,
+   cnt_fam_members,
+   week_strt,
+   hours_start,
+   rg_reg_n_l_r,
+   rg_reg_n_w_r,
+   reg_c_n_L_r,
+   reg_c_n_w_r,
+   organization_type,
+   ext_source_2,
+   ext_source_3,
+   obs_30_cnt,
+   def_30_cnt,
+   obs_60_cnt,
+   def_60_cnt,
+   days_last_phone_change,
+   amt_r_c_b_hour,
+   amt_r_c_b_day,
+   amt_r_c_b_week,
+   amt_r_c_b_mon,
+   amt_r_c_b_qrt,
+   amt_r_c_b_year,
+   age_group,]
+   
+   
+   import joblib
+   if add_selectbox=="Logistic Regression":
+      model=joblib.load("logistic.joblib")
+      pred=model.predict([p_list])
+      
+   elif add_selectbox=="Random Forest":
+      model=joblib.load("ramdomforest.joblib")
+      pred=model.predict([p_list])
+      
+   elif add_selectbox=="KNN":
+      model=joblib.load("knn.joblib")
+      pred=model.predict([p_list])  
+         
+   elif add_selectbox=="Decision Tree":
+      model=joblib.load("decision.joblib")
+      pred=model.predict([p_list])
+      
+   else:
+      model=joblib.load("ramdomforest.joblib")
+      pred=model.predict([p_list])   
+   
+      
+   
+   
+   if st.button('Predict'):
+      
+      if pred:
+         
+         st.write("probabily the client able to repay the in future")
+      else:   
+         st.write("probabily the client not able to repay the in future")
 with tab3:
    
-   target0=df2[df2["TARGET"]==0]
-   target1=df2[df2["TARGET"]==1]
    
-   st.header("Bivariate Analysis")
-
-   st.write(df2.head())
- 
-   def plot_countplots_hue(data,col):
+  all1,cus1= st.tabs(["All EDA ", "Customise Chart"])   
+  
+  with all1:
      
-      fig7=plt.figure(figsize=(12,6))
-      sns.countplot(x=col,data=data, hue="TARGET")
-      plt.xticks(rotation=45)
-      plt.xlabel(col)
-      plt.ylabel('Number of loans')
-      plt.legend(["Non Defaulted Population(TARGET=0)","Defaulted Population(TARGET=1)"])
-      plt.title(f'{col} ')
-      st.pyplot(fig7)
-      
-   plot_countplots_hue(df2,"CODE_GENDER") 
+     target0=df2[df2["TARGET"]==0]
+     target1=df2[df2["TARGET"]==1]
    
-   st.markdown("**Observation:** We can see that females are 175k in Non defaulter category whereas,\n"
+     st.header("Bivariate Analysis")
+
+     st.write(df2.head())
+ 
+     def plot_countplots_hue(data,col):
+        
+     
+        fig7=plt.figure(figsize=(12,6))
+        sns.countplot(x=col,data=data, hue="TARGET")
+        plt.xticks(rotation=45)
+        plt.xlabel(col)
+        plt.ylabel('Number of loans')
+        plt.legend(["Non Defaulted Population(TARGET=0)","Defaulted Population(TARGET=1)"])
+        plt.title(f'{col} ')
+        st.pyplot(fig7)
+      
+     plot_countplots_hue(df2,"CODE_GENDER") 
+   
+     st.markdown("**Observation:** We can see that females are 175k in Non defaulter category whereas,\n"
                "men are around 80k in numbers in non defaulter. Which tell us that more female repey the loan.")  
      
+     st.write("")
+     st.write("") 
+     st.write("")  
+     plot_countplots_hue(df2,"NAME_CONTRACT_TYPE")
    
-   plot_countplots_hue(df2,"NAME_CONTRACT_TYPE")
-   
-   st.markdown('**Observation:** Here the contract is divided in two categories: Cash loans & Revolving laons. In which\n'
+     st.markdown('**Observation:** Here the contract is divided in two categories: Cash loans & Revolving laons. In which\n'
                'females are dominant in both of the categories')  
    
-   
-   plot_countplots_hue(df2,"NAME_TYPE_SUITE")
-   st.markdown('**Observation:** This graph tell us the ratio between type suit and lonas. We define 0 as non defaulty and 1 as defaulter.\n'
+     st.write("") 
+     st.write("") 
+     st.write("") 
+     plot_countplots_hue(df2,"NAME_TYPE_SUITE")
+     st.markdown('**Observation:** This graph tell us the ratio between type suit and lonas. We define 0 as non defaulty and 1 as defaulter.\n'
                'It shows that mostly unaccompained people repay their loans')  
      
    
-   plot_countplots_hue(df2,"NAME_INCOME_TYPE")
-   st.markdown('**Observation:** This graph is the ratio income type and loan. Working people are on the top to repay their loans whereas\n'
+     plot_countplots_hue(df2,"NAME_INCOME_TYPE")
+     st.markdown('**Observation:** This graph is the ratio income type and loan. Working people are on the top to repay their loans whereas\n'
                'state  serverts comes at the 4th numbere.')  
    
-   
-   plot_countplots_hue(df2,"NAME_EDUCATION_TYPE")
-   st.markdown('**Observations** We can see that mostly Secondary education people repay their loans later comes the higher education.')  
+     st.write("") 
+     st.write("") 
+     st.write("") 
+     plot_countplots_hue(df2,"NAME_EDUCATION_TYPE")
+     st.markdown('**Observations** We can see that mostly Secondary education people repay their loans later comes the higher education.')  
     
-   
-   plot_countplots_hue(df2,"NAME_FAMILY_STATUS")
-   st.markdown('**Observations** This graph tell us that Married people are more responsible and comes in non defaulter cetegory')  
+     st.write("") 
+     st.write("") 
+     st.write("") 
+     plot_countplots_hue(df2,"NAME_FAMILY_STATUS")
+     st.markdown('**Observations** This graph tell us that Married people are more responsible and comes in non defaulter cetegory')  
    
   
-   
-   plot_countplots_hue(df2,"NAME_HOUSING_TYPE")
-   st.markdown('**Observations** People having house or apartments are more in non default category and number reaches upto 250k')  
+     st.write("") 
+     st.write("") 
+     st.write("") 
+     plot_countplots_hue(df2,"NAME_HOUSING_TYPE")
+     st.markdown('**Observations** People having house or apartments are more in non default category and number reaches upto 250k')  
      
-   
-   plot_countplots_hue(df2,"OCCUPATION_TYPE")
-   st.markdown('**Observations** People from the medicine field are more non defaulters whereas\n'
+     st.write("") 
+     st.write("") 
+     st.write("") 
+     plot_countplots_hue(df2,"OCCUPATION_TYPE")
+     st.markdown('**Observations** People from the medicine field are more non defaulters whereas\n'
                'labourer and pensionars are mostly defaulters')  
    
+     st.write("") 
+     st.write("") 
+     st.write("") 
+     plot_countplots_hue(df2,"CNT_FAM_MEMBERS")
+     st.markdown('**Observations** This graph tell us about Count the members of the Family')  
    
-   plot_countplots_hue(df2,"CNT_FAM_MEMBERS")
-   st.markdown('**Observations** This graph tell us about Count the members of the Family')  
-   
-   
-   plot_countplots_hue(df2,"WEEKDAY_APPR_PROCESS_START")
-   st.markdown('**Observations** This graph shows weekly report. We see that during weekdays\n '
+     st.write("") 
+     st.write("") 
+     st.write("") 
+     plot_countplots_hue(df2,"WEEKDAY_APPR_PROCESS_START")
+     st.markdown('**Observations** This graph shows weekly report. We see that during weekdays\n '
                'we have more results and on weekends less')  
     
-   
-   plot_countplots_hue(df2,"ORGANIZATION_TYPE")
-   st.markdown('**Observations** This is the graph of Organization type in which Business type \n'
+     st.write("") 
+     st.write("") 
+     st.write("") 
+     plot_countplots_hue(df2,"ORGANIZATION_TYPE")
+     st.markdown('**Observations** This is the graph of Organization type in which Business type \n'
                'are leading in non defaulters')  
+     st.write("") 
+     st.write("") 
+     st.write("") 
+     plot_countplots_hue(df2,"AGE_GROUP")
+   
+     st.markdown('**Observations** This graph shows that mostly middle age people are non dedaulter and 2nd comes the young. ')  
+   
+    
+   
+   
+   
+   
+   
+     st.write("")
+     st.write("")
+     st.write("")
+     st.write("")
+     st.subheader("Bi Variate Analysis")
+     cmap = sns.color_palette("Set2")
+     numerical_col=df2.select_dtypes("number")
+     fig, axes = plt.subplots(ncols=2, nrows=5, figsize=(10, 18))
+     a = [i for i in axes for i in i] # axes is nested if >1 row & >1 col, need to flatten
+     for i, ax in enumerate(a):
+        sns.boxplot(x='TARGET', y=numerical_col.columns[i], data=df2, palette=cmap, width=0.5, ax=ax)
+
+     # rotate x-axis for every single plot
+     for ax in fig.axes:
+        plt.sca(ax)
+        plt.xticks(rotation=45)
+
+      # set spacing for every subplot, else x-axis will be covered
+     plt.tight_layout()
+     st.pyplot(fig)
+   
+     st.write("") 
+     st.write("") 
+     st.write("") 
+   
+     fig9=plt.figure(figsize=(12,6))
+     sns.violinplot(x=df2["TARGET"],y=df2["DAYS_BIRTH"],hue=df2['AGE_GROUP'])
+     plt.xlabel('Class (0: Non-defualted, 1: defualted)')
+     plt.ylabel('Age in Years')
+     plt.title('Violin Plot of ages by Target')
+     st.pyplot(fig9)
+   
+     st.write("") 
+     st.write("") 
+     st.write("") 
      
-   plot_countplots_hue(df2,"AGE_GROUP")
-   
-   st.markdown('**Observations** This graph shows that mostly middle age people are non dedaulter and 2nd comes the young. ')  
-   
-    
-   
-   
-   
+     fig10=plt.figure(figsize=(12,6))
+     sns.scatterplot(x='AMT_ANNUITY', y='AMT_CREDIT', data=df2)
+     plt.title('Relationship between Fare and Age')
+     plt.xlabel('AMT_INCOME_TOTAL')
+     plt.ylabel('AMT_CREDIT')
+     st.pyplot(fig10)
    
    
-   st.write("")
-   st.write("")
-   st.write("")
-   st.write("")
-   st.subheader("Bi Variate Analysis")
-   cmap = sns.color_palette("Set2")
-   numerical_col=df2.select_dtypes("number")
-   fig, axes = plt.subplots(ncols=2, nrows=5, figsize=(10, 18))
-   a = [i for i in axes for i in i] # axes is nested if >1 row & >1 col, need to flatten
-   for i, ax in enumerate(a):
-      sns.boxplot(x='TARGET', y=numerical_col.columns[i], data=df2, palette=cmap, width=0.5, ax=ax)
-
-   # rotate x-axis for every single plot
-   for ax in fig.axes:
-      plt.sca(ax)
-      plt.xticks(rotation=45)
-
-# set spacing for every subplot, else x-axis will be covered
-   plt.tight_layout()
-   st.pyplot(fig)
-   
-   
-   fig9=plt.figure(figsize=(12,6))
-   sns.violinplot(x=df2["TARGET"],y=df2["DAYS_BIRTH"],hue=df2['AGE_GROUP'])
-   plt.xlabel('Class (0: Non-defualted, 1: defualted)')
-   plt.ylabel('Age in Years')
-   plt.title('Violin Plot of ages by Target')
-   st.pyplot(fig9)
-   
-   
-   fig10=plt.figure(figsize=(12,6))
-   sns.scatterplot(x='AMT_ANNUITY', y='AMT_CREDIT', data=df2)
-   plt.title('Relationship between Fare and Age')
-   plt.xlabel('AMT_INCOME_TOTAL')
-   plt.ylabel('AMT_CREDIT')
-   st.pyplot(fig10)
-   
-   
-   def uni(col):
+     def uni(col):
       
-      sns.set(style="darkgrid")
-      fig10=plt.figure(figsize=(40,20))
+        sns.set(style="darkgrid")
+        fig10=plt.figure(figsize=(40,20))
     
    
-      plt.subplot(1,2,1)                                   
-      sns.distplot(target0[col], color="g" )
-      plt.yscale('linear') 
-      plt.xlabel(col, fontsize= 30, fontweight="bold")
-      plt.ylabel('Non Payment Difficulties', fontsize= 30, fontweight="bold")                    #Target 0
-      plt.xticks(rotation=90, fontsize=30)
-      plt.yticks(rotation=360, fontsize=30)
+        plt.subplot(1,2,1)                                   
+        sns.distplot(target0[col], color="g" )
+        plt.yscale('linear') 
+        plt.xlabel(col, fontsize= 30, fontweight="bold")
+        plt.ylabel('Non Payment Difficulties', fontsize= 30, fontweight="bold")                    #Target 0
+        plt.xticks(rotation=90, fontsize=30)
+        plt.yticks(rotation=360, fontsize=30)
      
     
     
     
-      plt.subplot(1,2,2)                                                                                                      
-      sns.distplot(target1[col], color="r")
-      plt.yscale('linear')    
-      plt.xlabel(col, fontsize= 30, fontweight="bold")
-      plt.ylabel('Payment Difficulties', fontsize= 30, fontweight="bold")                       # Target 1
-      plt.xticks(rotation=90, fontsize=30)
-      plt.yticks(rotation=360, fontsize=30)
+        plt.subplot(1,2,2)                                                                                                      
+        sns.distplot(target1[col], color="r")
+        plt.yscale('linear')    
+        plt.xlabel(col, fontsize= 30, fontweight="bold")
+        plt.ylabel('Payment Difficulties', fontsize= 30, fontweight="bold")                       # Target 1
+        plt.xticks(rotation=90, fontsize=30)
+        plt.yticks(rotation=360, fontsize=30)
     
-      st.pyplot(fig10)
+        st.pyplot(fig10)
       
       
-   uni(col='AMT_ANNUITY')  
-   
-with tab4:
-   df5=pd.read_csv("cleaned_final_dataset.csv").sample(1000)
-   X=df5.iloc[:,1:]
-   y=df5["TARGET"]
-   
-   with st.echo():
+     uni(col='AMT_ANNUITY')  
+  
+  with cus1:
+     
+     st.title("Bivariate Analysis")
+     st.write("")
+     st.write("")
+     
+
+# Generate data
+     
+     t=""
+     def plot_countplots(data,col):
+        fig7=plt.figure(figsize=(12,6))
+        
+        sns.countplot(x=col,data=data, hue="TARGET")
+        plt.xticks(rotation=45)
+        plt.xlabel(col)
+        plt.ylabel('Number of loans')
+        plt.legend(["Non Defaulted Population(TARGET=0)","Defaulted Population(TARGET=1)"])
+        plt.title(f'{col} ')
+        st.pyplot(fig7)
+        
+        
+        
+     tab_selected = st.selectbox("Select a column", ['TARGET', 'NAME_CONTRACT_TYPE', 'CODE_GENDER', 'NAME_TYPE_SUITE',
+       'NAME_INCOME_TYPE', 'NAME_EDUCATION_TYPE', 'NAME_FAMILY_STATUS',
+       'NAME_HOUSING_TYPE', 'OCCUPATION_TYPE',])
+     
+     # Use a conditional statement to display the selected tab's content
+     if tab_selected == "TARGET":
+        
+        plot_countplots(df2,"TARGET")
+        
+        t='''**Observation:** Female are dominant for repay loads'''
+     elif tab_selected == "NAME_CONTRACT_TYPE":
+        
+        plot_countplots(df2,"NAME_CONTRACT_TYPE")
+        t='''**Observation:** Here the contract is divided in two categories: Cash loans & Revolving laons. In which females are dominant in both of the categories'''
       
-      models_w_param = [
-      {"Decision Tree":DecisionTreeClassifier(),
-      "param_grid":{'max_depth': [3, 5, 7, None], 'min_samples_split': [2, 3, 4]}},
-      {"K-Nearest Neighbor":KNeighborsClassifier(),
-      "param_grid":{'n_neighbors': [3, 5, 7, None], 'weights': ["uniform", "distance"],"algorithm":["auto", "ball_tree", "kd_tree", "brute"]}},
-
-      {"Logistic Regression":LogisticRegression(),
-      "param_grid":{"penalty":['l2',"l1"], "dual":[False,True ], "C":[1.0,2.0], "fit_intercept":[True,False]}},
-
-      {"Random Forest":RandomForestClassifier(),
-      "param_grid":{"n_estimators":[100], "criterion":['gini',"entropy","log_loss"], "max_depth":[None,5,10,15],}},
-
-      {"SVM": SVC(),
-      "param_grid":{"C":[1.0,2.0,5.0], "kernel":["rbf", "sigmoid", ], "degree":[3,5,7,9], "gamma":["scale", "auto"], }}
-      ]
-
-
-
-      models_scores = []
-      for model_list in models_w_param:
-    
-         model_nv,param_grid=model_list.items()
-   
-    
+     elif tab_selected == "CODE_GENDER":
+        
+        plot_countplots(df2,"CODE_GENDER")
+        t='''We can see that females are 175k in Non defaulter category whereas
+              "men are around 80k in numbers in non defaulter. Which tell us that more female repey the loan.'''
       
-         #object grid search cv (Creating the model)
-         grid_search = GridSearchCV(model_nv[1], param_grid[1], cv=5, scoring="f1")
-         grid_search.fit(X,y)  # training the model
-         models_scores.append([model_nv[0],grid_search.best_score_,grid_search.best_params_])# append the score in the list 
+     elif tab_selected == "NAME_TYPE_SUITE":
+       
+        plot_countplots(df2,"NAME_TYPE_SUITE")
+        t='''**Observation:** This graph tell us the ratio between type suit and lonas. We define 0 as non defaulty and 1 as defaulter. It shows that mostly unaccompained people repay their loans'''
+        
+     elif tab_selected == "NAME_INCOME_TYPE":
+        
+        plot_countplots(df2,"NAME_INCOME_TYPE")
+        t='''**Observation:** This graph is the ratio income type and loan. Working people are on the top to repay their loans whereas state  serverts comes at the 4th numbere.'''
+     
+     elif tab_selected == "NAME_EDUCATION_TYPE":
+        
+        plot_countplots(df2,"NAME_EDUCATION_TYPE")
+        t='''**Observations** We can see that mostly Secondary education people repay their loans later comes the higher education.'''      
+      
+     elif tab_selected == "NAME_FAMILY_STATUS":
+        st.write("Tab 2 selected")
+        plot_countplots(df2,"NAME_FAMILY_STATUS")
+        t='''**Observations** This graph tell us that Married people are more responsible and comes in non defaulter cetegory'''   
+        
+     elif tab_selected == "NAME_HOUSING_TYPE":
+        st.write("Tab 2 selected")
+        plot_countplots(df2,"NAME_HOUSING_TYPE")
+        t='''**Observations** People having house or apartments are more in non default category and number reaches upto 250k'''
+              
+     elif tab_selected == "OCCUPATION_TYPE":
+        plot_countplots(df2,"OCCUPATION_TYPE")
+        t='''**Observations** People from the medicine field are more non defaulters whereas labourer and pensionars are mostly defaulters'''
+       
+     
+     
+       
+     
+     with st.expander("See explanation"):
+        st.write(t)
       
       
-         sorted_models = sorted(models_scores, key=lambda x: x[1], reverse=True)
-         for model in sorted_models:
-            print("F1 Score: ",f'{model[0]} : {model[1]:.2f} best param :{model[2]}')
-   
+     # Open the sidebar when a specific tab is selected
+     if cus1 == "Customise Chart":
+        
+        st.sidebar.header("Tab 2 Options")
+        st.sidebar.empty()   
+     
+     
+     
+       
