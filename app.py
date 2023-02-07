@@ -26,9 +26,9 @@ plt.style.use('ggplot') #Applying style to graphs
 
 @st.cache
 def load_csv():
-        csv=pd.read_csv("E:/data science dataset/application_data.csv")
+        csv=pd.read_csv("application_data.csv")
         return csv
-df=pd.read_csv("E:/data science dataset/application_data.csv")
+df=pd.read_csv("application_data.csv")
 df2=pd.DataFrame()
 
 
@@ -486,7 +486,7 @@ with tab2:
       plt.xticks(rotation=80,)
       st.pyplot(fig12)
       
-      data1.to_csv("cleaned_final_dataset.csv")
+      
 
    
    
